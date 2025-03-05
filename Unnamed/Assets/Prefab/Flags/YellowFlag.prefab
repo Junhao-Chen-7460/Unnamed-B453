@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6703345260082173274}
   m_Layer: 0
   m_Name: YellowFlag
-  m_TagString: Yellow
+  m_TagString: FYellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

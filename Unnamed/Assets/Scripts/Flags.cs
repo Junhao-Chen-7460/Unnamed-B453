@@ -8,6 +8,7 @@ public class Flags : MonoBehaviour
     [SerializeField] GameObject flag1;
     [SerializeField] GameObject flag2;
 
+
     private float timer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5584291009516014591}
   m_Layer: 0
   m_Name: Billion_G
-  m_TagString: Green
+  m_TagString: MGreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78e4681649e40d429038bfca76a2d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetFlagPrefab: {fileID: 4878632670159109465, guid: be34e5854893cca48af40f62025a672e, type: 3}
 --- !u!50 &-7135699217981606039
 Rigidbody2D:
   serializedVersion: 5
@@ -115,7 +116,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -164,4 +165,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.495
+  m_Radius: 0.4

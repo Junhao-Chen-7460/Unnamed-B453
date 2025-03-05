@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 996732699045918810}
   m_Layer: 0
   m_Name: RedFlag
-  m_TagString: Green
+  m_TagString: FRed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

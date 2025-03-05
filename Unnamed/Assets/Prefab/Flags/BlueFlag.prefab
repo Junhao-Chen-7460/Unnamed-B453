@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 6215067729504160880}
   m_Layer: 0
   m_Name: BlueFlag
-  m_TagString: Blue
+  m_TagString: FBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -48,13 +48,29 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (hit.collider != null)
+            GameObject selectedFlag = null;
+
+            foreach (RaycastHit2D hit in hits)
             {
-                dragging = hit.collider.gameObject;
+                if (hit.collider != null)
+                {
+                    GameObject obj = hit.collider.gameObject;
+
+                    if (obj.GetComponent<Flags>() != null)
+                    {
+                        selectedFlag = obj;
+                        break;
+                    }
+                }
+            }
+
+            if (selectedFlag != null)
+            {
+                dragging = selectedFlag;
                 line.enabled = true;
             }
             else
@@ -92,7 +108,7 @@ public class GameManager : MonoBehaviour
         else
         {
             GameObject newFlag = Instantiate(prefab, position, Quaternion.identity);
-            newFlag.tag = tag;
+            newFlag.tag = prefab.tag;
             flagQueue.Enqueue(newFlag);
         }
     }
