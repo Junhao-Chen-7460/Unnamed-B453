@@ -79,6 +79,26 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(2))
+        {
+            GameObject selectedBillion = null;
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null)
+                {
+                    GameObject obj = hit.collider.gameObject;
+
+                    if (obj.GetComponent<BillionController>() != null)
+                    {
+                        selectedBillion = obj;
+                        break;
+                    }
+                }
+            }
+
+            selectedBillion?.GetComponent<BillionController>().minusHealth();
+        }
+
         HandleFlagDragging(mousePos);
     }
     void HandleFlagPlacement(Vector2 position)

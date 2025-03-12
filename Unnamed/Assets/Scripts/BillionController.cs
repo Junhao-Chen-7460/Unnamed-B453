@@ -12,11 +12,19 @@ public class BillionController : MonoBehaviour
     private float stoppingDistance = 0.5f;
     private float decelerationFactor = 0.98f;
 
+    private int health;
+    [SerializeField] int maxHealth = 4;
+
+    [SerializeField] GameObject DmgEffect1;
+    [SerializeField] GameObject DmgEffect2;
+    [SerializeField] GameObject DmgEffect3;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -30,10 +38,6 @@ public class BillionController : MonoBehaviour
 
         string targetFlagTag = targetFlagPrefab.tag;
         GameObject[] allFlags = GameObject.FindGameObjectsWithTag(targetFlagTag);
-        if (allFlags.Length > 0)
-        {
-            Debug.Log(allFlags.Length);
-        }
         float closestDistance = Mathf.Infinity;
 
         foreach (GameObject flag in allFlags)
@@ -98,5 +102,48 @@ public class BillionController : MonoBehaviour
                 otherRb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
             }
         }
+    }
+
+    void HandleHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        float healthPercent = (float)health / maxHealth;
+        Debug.Log(healthPercent);
+        if (healthPercent <= 1f / 3f)
+        {
+            DmgEffect1.SetActive(false);
+            DmgEffect2.SetActive(false);
+            DmgEffect3.SetActive(true);
+        }
+        else if (healthPercent <= 2f / 3f)
+        {
+            DmgEffect1.SetActive(false);
+            DmgEffect2.SetActive(true);
+            DmgEffect3.SetActive(false);
+        }
+        else if(healthPercent < 1f)
+        {
+            DmgEffect1.SetActive(true);
+            DmgEffect2.SetActive(false);
+            DmgEffect3.SetActive(false);
+        }
+
+
+
+
+
+
+        //float newScale = Mathf.Max(0.2f, 0.4f - (maxHealth - health) * 0.03f);
+        //transform.localScale = new Vector3(newScale, newScale, 1f);
+    }
+
+    public void minusHealth()
+    {
+        health--;
+        HandleHealth();
     }
 }

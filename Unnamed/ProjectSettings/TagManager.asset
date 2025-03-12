@@ -14,6 +14,9 @@ TagManager:
   - FGreen
   - FRed
   - FYellow
+  - damaged1
+  - damaged2
+  - damaged3
   layers:
   - Default
   - TransparentFX
