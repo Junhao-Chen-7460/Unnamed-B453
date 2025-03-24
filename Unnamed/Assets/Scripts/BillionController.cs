@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BillionController : MonoBehaviour
@@ -19,6 +20,14 @@ public class BillionController : MonoBehaviour
     [SerializeField] GameObject DmgEffect2;
     [SerializeField] GameObject DmgEffect3;
 
+    Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
+    {
+        { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
+        { "MBlue",   new List<string>{ "MRed", "MGreen", "MYellow" } },
+        { "MGreen",  new List<string>{ "MRed", "MBlue", "MYellow" } },
+        { "MYellow", new List<string>{ "MRed", "MBlue", "MGreen" } }
+    };
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +39,7 @@ public class BillionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FaceClosestEnemy();
         FindClosestFlag();
         MoveTowardsFlag();
     }
@@ -132,18 +142,43 @@ public class BillionController : MonoBehaviour
             DmgEffect3.SetActive(false);
         }
 
-
-
-
-
-
-        //float newScale = Mathf.Max(0.2f, 0.4f - (maxHealth - health) * 0.03f);
-        //transform.localScale = new Vector3(newScale, newScale, 1f);
     }
 
     public void minusHealth()
     {
         health--;
         HandleHealth();
+    }
+    void FaceClosestEnemy()
+    {
+        if (!enemyDict.ContainsKey(gameObject.tag)) return; 
+
+        List<string> enemyTags = enemyDict[gameObject.tag];
+
+        float closestDistance = Mathf.Infinity;
+        GameObject closestEnemy = null;
+
+        foreach (string tag in enemyTags)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(tag);
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy == this.gameObject) continue;
+
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+
+        if (closestEnemy != null)
+        {
+            Vector2 direction = (closestEnemy.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            rb.rotation = angle;
+        }
     }
 }
