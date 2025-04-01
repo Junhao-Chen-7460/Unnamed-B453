@@ -17,6 +17,13 @@ TagManager:
   - damaged1
   - damaged2
   - damaged3
+  - turrents
+  - LR
+  - LG
+  - LY
+  - LB
+  - Base
+  - Wall
   layers:
   - Default
   - TransparentFX

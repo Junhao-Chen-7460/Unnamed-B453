@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2332084737176591784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259759707646965986}
+  m_Layer: 0
+  m_Name: turrent
+  m_TagString: turrents
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &259759707646965986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332084737176591784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.387, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9197555634910444369}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3228473201084470619
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +67,7 @@ Transform:
   - {fileID: 6088995728981588807}
   - {fileID: 1962517875770896348}
   - {fileID: 2314952925567806666}
+  - {fileID: 259759707646965986}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5048292723784338987
@@ -110,6 +142,13 @@ MonoBehaviour:
   DmgEffect1: {fileID: 6096988198927016365}
   DmgEffect2: {fileID: 4646126019050343156}
   DmgEffect3: {fileID: 5349687960045452559}
+  redLaserPrefab: {fileID: 8227870056233956945, guid: 945f35acb0bc7b44a97a1ff712f7db70, type: 3}
+  blueLaserPrefab: {fileID: 7903744761292733658, guid: 3185d9adef0ea904b8ae35084de65148, type: 3}
+  greenLaserPrefab: {fileID: 8456497054598838614, guid: e294dc8449fcd09459d2f9fc0a351f7e, type: 3}
+  yellowLaserPrefab: {fileID: 3137442216592204714, guid: d997f562aa35d834b853c7e01e35790b, type: 3}
+  laserSpeed: 7
+  fireDistance: 5
+  fireCooldown: 1.5
 --- !u!50 &3162604116561233035
 Rigidbody2D:
   serializedVersion: 5

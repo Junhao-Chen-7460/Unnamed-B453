@@ -20,6 +20,20 @@ public class BillionController : MonoBehaviour
     [SerializeField] GameObject DmgEffect2;
     [SerializeField] GameObject DmgEffect3;
 
+    [Header("biu")]
+    [SerializeField] GameObject redLaserPrefab;
+    [SerializeField] GameObject blueLaserPrefab;
+    [SerializeField] GameObject greenLaserPrefab;
+    [SerializeField] GameObject yellowLaserPrefab;
+
+    [SerializeField] float laserSpeed = 7f;
+
+    [SerializeField] float fireDistance = 4f;
+    [SerializeField] float fireCooldown = 1f;
+
+    private Transform turrent;
+    private float fireTimer;
+
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
     {
         { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
@@ -34,14 +48,19 @@ public class BillionController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
+        turrent = transform.Find("turrent");
+        fireTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         FaceClosestEnemy();
+        fireTimer += Time.deltaTime;
+        TryFireAtClosestEnemy();
         FindClosestFlag();
         MoveTowardsFlag();
+        
     }
     void FindClosestFlag()
     {
@@ -180,5 +199,57 @@ public class BillionController : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = angle;
         }
+    }
+    void TryFireAtClosestEnemy()
+    {
+        if (!enemyDict.ContainsKey(gameObject.tag)) return;
+
+        List<string> enemyTags = enemyDict[gameObject.tag];
+        float closestDistance = Mathf.Infinity;
+        GameObject closestEnemy = null;
+
+        foreach (string tag in enemyTags)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(tag);
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy == this.gameObject) continue;
+
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+
+        if (closestEnemy != null && closestDistance <= fireDistance && fireTimer >= fireCooldown)
+        {
+            fireTimer = 0f;
+            FireLaser(closestEnemy.transform.position);
+        }
+    }
+
+    void FireLaser(Vector3 targetPos)
+    {
+        GameObject laserPrefab = null;
+        switch (gameObject.tag)
+        {
+            case "MRed": laserPrefab = redLaserPrefab; break;
+            case "MBlue": laserPrefab = blueLaserPrefab; break;
+            case "MGreen": laserPrefab = greenLaserPrefab; break;
+            case "MYellow": laserPrefab = yellowLaserPrefab; break;
+        }
+
+        if (laserPrefab == null || turrent == null) return;
+
+        Vector3 direction = (targetPos - turrent.position).normalized;
+        GameObject laser = Instantiate(laserPrefab, turrent.position, Quaternion.identity);
+        laser.GetComponent<Rigidbody2D>().linearVelocity = direction * laserSpeed;
+
+        laser.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        laser.GetComponent<Laser>().ownerTag = gameObject.tag;
     }
 }
