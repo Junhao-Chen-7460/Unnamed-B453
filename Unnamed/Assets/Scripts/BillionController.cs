@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -143,7 +144,6 @@ public class BillionController : MonoBehaviour
         }
 
         float healthPercent = (float)health / maxHealth;
-        Debug.Log(healthPercent);
         if (healthPercent <= 1f / 3f)
         {
             DmgEffect1.SetActive(false);
@@ -250,8 +250,19 @@ public class BillionController : MonoBehaviour
         GameObject laser = Instantiate(laserPrefab, turrent.position, Quaternion.identity);
         laser.GetComponent<Rigidbody2D>().linearVelocity = direction * laserSpeed;
 
-        laser.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        laser.transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+
+        String bTag = null;
+        switch (turrent.tag)
+        {
+            case "MRed": bTag = "BR"; break;
+            case "MBlue": bTag = "BB"; break;
+            case "MGreen": bTag = "BG"; break;
+            case "MYellow": bTag = "BY"; break;
+        }
 
         laser.GetComponent<Laser>().ownerTag = gameObject.tag;
+        laser.GetComponent<Laser>().baseTag = bTag;
     }
 }

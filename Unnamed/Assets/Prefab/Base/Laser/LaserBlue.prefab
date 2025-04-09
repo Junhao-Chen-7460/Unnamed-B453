@@ -176,4 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerTag: 
-  damage: 3
+  baseTag: 
+  damage: 4

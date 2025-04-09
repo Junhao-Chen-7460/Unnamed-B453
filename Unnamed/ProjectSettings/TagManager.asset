@@ -29,6 +29,10 @@ TagManager:
   - TBlue
   - TYellow
   - TGreen
+  - BB
+  - BR
+  - BY
+  - BG
   layers:
   - Default
   - TransparentFX

@@ -19,13 +19,14 @@ public class BaseController : MonoBehaviour
     [SerializeField] float fireCooldown = 1f;
     [SerializeField] GameObject turrentBase;
     [SerializeField] GameObject turrent;
+    [SerializeField] float maxRotationSpeed = 30f;
 
     private float fireTimer;
     private float timer;
     private Vector3 SpawnPoint;
 
     private Rigidbody2D rb;
-    private Transform turretGun;
+    private Transform turrentGun;
     private Transform shotPoint;
 
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
@@ -45,8 +46,8 @@ public class BaseController : MonoBehaviour
 
         if (turrent != null)
         {
-            turretGun = turrent.transform.Find("TurrentGun");
-            shotPoint = turretGun.Find("shotPoint");
+            turrentGun = turrent.transform.Find("TurrentGun");
+            shotPoint = turrentGun.Find("shotPoint");
         }
     }
 
@@ -78,10 +79,10 @@ public class BaseController : MonoBehaviour
 
     void FaceClosestEnemy()
     {
-        if (turretGun == null || shotPoint == null) return;
-        if (!enemyDict.ContainsKey(gameObject.tag)) return;
+        if (turrentGun == null || shotPoint == null) return;
+        if (!enemyDict.ContainsKey(turrent.tag)) return;
 
-        List<string> enemyTags = enemyDict[gameObject.tag];
+        List<string> enemyTags = enemyDict[turrent.tag];
         float closestDistance = Mathf.Infinity;
         GameObject closestEnemy = null;
 
@@ -103,16 +104,18 @@ public class BaseController : MonoBehaviour
 
         if (closestEnemy != null)
         {
-            Vector2 direction = (closestEnemy.transform.position - turretGun.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            turretGun.rotation = Quaternion.RotateTowards(turretGun.rotation, Quaternion.Euler(0, 0, angle), 180 * Time.deltaTime);
+            Vector3 targetDir = (closestEnemy.transform.position - transform.position).normalized;
+            Vector3 currentDir = (turrentGun.position - transform.position).normalized;
+            float angleDiff = Vector3.SignedAngle(currentDir, targetDir, Vector3.forward);
+            float step = Mathf.Clamp(angleDiff, -maxRotationSpeed * Time.deltaTime, maxRotationSpeed * Time.deltaTime);
+            turrentGun.RotateAround(transform.position, Vector3.forward, step);
         }
     }
     void TryFireAtClosestEnemy()
     {
-        if (!enemyDict.ContainsKey(gameObject.tag)) return;
+        if (!enemyDict.ContainsKey(turrent.tag)) return;
 
-        List<string> enemyTags = enemyDict[gameObject.tag];
+        List<string> enemyTags = enemyDict[turrent.tag];
         float closestDistance = Mathf.Infinity;
         GameObject closestEnemy = null;
 
@@ -155,8 +158,10 @@ public class BaseController : MonoBehaviour
         Vector3 direction = (targetPos - shotPoint.position).normalized;
         GameObject laser = Instantiate(laserPrefab, shotPoint.position, Quaternion.identity);
         laser.GetComponent<Rigidbody2D>().linearVelocity = direction * laserSpeed;
-        laser.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        laser.transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+
         String oTag = null;
         switch (turrent.tag)
         {
@@ -165,6 +170,16 @@ public class BaseController : MonoBehaviour
             case "TGreen": oTag = "MGreen"; break;
             case "TYellow": oTag = "MYellow"; break;
         }
+
+        String bTag = null;
+        switch (turrent.tag)
+        {
+            case "TRed": bTag = "BR"; break;
+            case "TBlue": bTag = "BB"; break;
+            case "TGreen": bTag = "BG"; break;
+            case "TYellow": bTag = "BY"; break;
+        }
         laser.GetComponent<Laser>().ownerTag = oTag;
+        laser.GetComponent<Laser>().baseTag = bTag;
     }
 }

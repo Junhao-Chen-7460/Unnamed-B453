@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 3472779644062761129, guid: 32b3e134ad057bc49a50867b5d436aeb, type: 3}
+      propertyPath: m_TagString
+      value: BY
+      objectReference: {fileID: 0}
     - target: {fileID: 8711936912692504572, guid: 32b3e134ad057bc49a50867b5d436aeb, type: 3}
       propertyPath: turrent
       value: 
@@ -215,6 +219,10 @@ PrefabInstance:
       propertyPath: greenLaserPrefab
       value: 
       objectReference: {fileID: 7441967172015195625, guid: a9bb87e7aa6bd664b819e96f3cb5cac6, type: 3}
+    - target: {fileID: 8711936912692504572, guid: 32b3e134ad057bc49a50867b5d436aeb, type: 3}
+      propertyPath: maxRotationSpeed
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 8711936912692504572, guid: 32b3e134ad057bc49a50867b5d436aeb, type: 3}
       propertyPath: yellowLaserPrefab
       value: 
@@ -261,12 +269,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7441967172015195625, guid: a9bb87e7aa6bd664b819e96f3cb5cac6, type: 3}
     - target: {fileID: 2314401041445471125, guid: 3e5dbe9ab52f9f040b15b943101ef8b2, type: 3}
+      propertyPath: maxRotationSpeed
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2314401041445471125, guid: 3e5dbe9ab52f9f040b15b943101ef8b2, type: 3}
       propertyPath: yellowLaserPrefab
       value: 
       objectReference: {fileID: 1776279194085104361, guid: 56d35b6f0fc9d3f44b7c97a95c315072, type: 3}
     - target: {fileID: 6446082916760188458, guid: 3e5dbe9ab52f9f040b15b943101ef8b2, type: 3}
       propertyPath: m_Name
       value: Base_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446082916760188458, guid: 3e5dbe9ab52f9f040b15b943101ef8b2, type: 3}
+      propertyPath: m_TagString
+      value: BR
       objectReference: {fileID: 0}
     - target: {fileID: 6913207711366920053, guid: 3e5dbe9ab52f9f040b15b943101ef8b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1909,6 +1925,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 2044474271437434097, guid: e300a54751705fb40931cd2d1bf2a7d0, type: 3}
+      propertyPath: m_TagString
+      value: BB
+      objectReference: {fileID: 0}
     - target: {fileID: 2206559474039857703, guid: e300a54751705fb40931cd2d1bf2a7d0, type: 3}
       propertyPath: m_TagString
       value: TBlue
@@ -1937,6 +1957,10 @@ PrefabInstance:
       propertyPath: greenLaserPrefab
       value: 
       objectReference: {fileID: 7441967172015195625, guid: a9bb87e7aa6bd664b819e96f3cb5cac6, type: 3}
+    - target: {fileID: 3554905441683843280, guid: e300a54751705fb40931cd2d1bf2a7d0, type: 3}
+      propertyPath: maxRotationSpeed
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 3554905441683843280, guid: e300a54751705fb40931cd2d1bf2a7d0, type: 3}
       propertyPath: yellowLaserPrefab
       value: 
@@ -2035,6 +2059,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7441967172015195625, guid: a9bb87e7aa6bd664b819e96f3cb5cac6, type: 3}
     - target: {fileID: 903729497889518891, guid: 55012acfb0884e94993d2da169d8dab7, type: 3}
+      propertyPath: maxRotationSpeed
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 903729497889518891, guid: 55012acfb0884e94993d2da169d8dab7, type: 3}
       propertyPath: yellowLaserPrefab
       value: 
       objectReference: {fileID: 1776279194085104361, guid: 56d35b6f0fc9d3f44b7c97a95c315072, type: 3}
@@ -2061,6 +2089,10 @@ PrefabInstance:
     - target: {fileID: 5154850215797826175, guid: 55012acfb0884e94993d2da169d8dab7, type: 3}
       propertyPath: m_Name
       value: Base_Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154850215797826175, guid: 55012acfb0884e94993d2da169d8dab7, type: 3}
+      propertyPath: m_TagString
+      value: BG
       objectReference: {fileID: 0}
     - target: {fileID: 6143358023185453720, guid: 55012acfb0884e94993d2da169d8dab7, type: 3}
       propertyPath: m_LocalPosition.x
