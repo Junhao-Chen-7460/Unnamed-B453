@@ -64,10 +64,10 @@ public class BillionController : MonoBehaviour
     }
     void FindClosestFlag()
     {
-
         string targetFlagTag = targetFlagPrefab.tag;
         GameObject[] allFlags = GameObject.FindGameObjectsWithTag(targetFlagTag);
         float closestDistance = Mathf.Infinity;
+        targetFlag = null;
 
         foreach (GameObject flag in allFlags)
         {
@@ -79,11 +79,13 @@ public class BillionController : MonoBehaviour
             }
         }
 
-        Collider2D flagCollider = targetFlag.GetComponent<Collider2D>();
-
-        if (flagCollider != null)
+        if (targetFlag != null)
         {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), flagCollider);
+            Collider2D flagCollider = targetFlag.GetComponent<Collider2D>();
+            if (flagCollider != null)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), flagCollider);
+            }
         }
     }
 
@@ -163,9 +165,9 @@ public class BillionController : MonoBehaviour
 
     }
 
-    public void minusHealth()
+    public void minusHealth(int number)
     {
-        health--;
+        health -= number;
         HandleHealth();
     }
     void FaceClosestEnemy()

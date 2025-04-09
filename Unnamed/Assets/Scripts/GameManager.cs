@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            selectedBillion?.GetComponent<BillionController>().minusHealth();
+            selectedBillion?.GetComponent<BillionController>().minusHealth(1);
         }
 
         HandleFlagDragging(mousePos);

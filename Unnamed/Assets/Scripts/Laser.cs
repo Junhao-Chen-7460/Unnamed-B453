@@ -3,6 +3,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     public string ownerTag;
+    [SerializeField] int damage;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -10,14 +11,14 @@ public class Laser : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (other.CompareTag(ownerTag))
+        else if (other.GetComponent<BillionController>() != null && !other.CompareTag(ownerTag))
+        {
+            other.GetComponent<BillionController>().minusHealth(damage);
+            Destroy(gameObject);
+        }
+        else
         {
             return;
-        }
-        else if (other.GetComponent<BillionController>() != null)
-        {
-            other.GetComponent<BillionController>().minusHealth();
-            Destroy(gameObject);
         }
     }
 }

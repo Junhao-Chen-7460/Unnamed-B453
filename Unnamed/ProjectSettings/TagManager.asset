@@ -24,6 +24,11 @@ TagManager:
   - LB
   - Base
   - Wall
+  - Red
+  - TRed
+  - TBlue
+  - TYellow
+  - TGreen
   layers:
   - Default
   - TransparentFX
