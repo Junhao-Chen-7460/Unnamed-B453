@@ -37,10 +37,10 @@ public class BillionController : MonoBehaviour
 
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
     {
-        { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
-        { "MBlue",   new List<string>{ "MRed", "MGreen", "MYellow" } },
-        { "MGreen",  new List<string>{ "MRed", "MBlue", "MYellow" } },
-        { "MYellow", new List<string>{ "MRed", "MBlue", "MGreen" } }
+        { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen", "BB", "BY", "BG" } },
+        { "MBlue",   new List<string>{ "MRed", "MGreen", "MYellow", "BR", "BY", "BG" } },
+        { "MGreen",  new List<string>{ "MRed", "MBlue", "MYellow", "BB", "BY", "BR" } },
+        { "MYellow", new List<string>{ "MRed", "MBlue", "MGreen", "BB", "BR", "BG" } }
     };
 
 
@@ -77,6 +77,12 @@ public class BillionController : MonoBehaviour
             {
                 closestDistance = distance;
                 targetFlag = flag;
+            }
+
+            Collider2D flagCol = flag.GetComponent<Collider2D>();
+            if (flagCol != null)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), flagCol, true);
             }
         }
 
@@ -254,7 +260,7 @@ public class BillionController : MonoBehaviour
         laser.transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
 
         String bTag = null;
-        switch (turrent.tag)
+        switch (gameObject.tag)
         {
             case "MRed": bTag = "BR"; break;
             case "MBlue": bTag = "BB"; break;

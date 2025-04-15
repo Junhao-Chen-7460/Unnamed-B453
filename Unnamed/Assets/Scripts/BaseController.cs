@@ -29,6 +29,10 @@ public class BaseController : MonoBehaviour
     private Transform turrentGun;
     private Transform shotPoint;
 
+    [SerializeField] int maxHealth = 20;
+    private int health;
+    [SerializeField] LifeRing lifeRing;
+
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
     {
         { "TRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
@@ -49,6 +53,9 @@ public class BaseController : MonoBehaviour
             turrentGun = turrent.transform.Find("TurrentGun");
             shotPoint = turrentGun.Find("shotPoint");
         }
+
+        health = maxHealth;
+        lifeRing.Init(maxHealth);
     }
 
     // Update is called once per frame
@@ -181,5 +188,21 @@ public class BaseController : MonoBehaviour
         }
         laser.GetComponent<Laser>().ownerTag = oTag;
         laser.GetComponent<Laser>().baseTag = bTag;
+    }
+
+    void HandleHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log(gameObject.tag + " Current Health left: " + health);
+    }
+
+    public void minusHealth(int number)
+    {
+        health -= number;
+        HandleHealth();
+        lifeRing.SetHealth(health);
     }
 }
