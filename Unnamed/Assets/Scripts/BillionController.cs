@@ -15,7 +15,7 @@ public class BillionController : MonoBehaviour
     private float decelerationFactor = 0.98f;
 
     private int health;
-    [SerializeField] int maxHealth = 4;
+    public int maxHealth = 4;
 
     [SerializeField] GameObject DmgEffect1;
     [SerializeField] GameObject DmgEffect2;
@@ -32,15 +32,17 @@ public class BillionController : MonoBehaviour
     [SerializeField] float fireDistance = 4f;
     [SerializeField] float fireCooldown = 1f;
 
+    public int lvl = 0;
+
     private Transform turrent;
     private float fireTimer;
 
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
     {
-        { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
-        { "MBlue",   new List<string>{ "MRed", "MGreen", "MYellow" } },
-        { "MGreen",  new List<string>{ "MRed", "MBlue", "MYellow" } },
-        { "MYellow", new List<string>{ "MRed", "MBlue", "MGreen" } }
+        { "MRed",    new List<string>{ "MBlue", "MYellow", "MGreen", "BB", "BY", "BG" } },
+        { "MBlue",   new List<string>{ "MRed", "MGreen", "MYellow", "BR", "BY", "BG" } },
+        { "MGreen",  new List<string>{ "MRed", "MBlue", "MYellow", "BB", "BY", "BR" } },
+        { "MYellow", new List<string>{ "MRed", "MBlue", "MGreen", "BB", "BR", "BG" } }
     };
 
 
@@ -77,6 +79,12 @@ public class BillionController : MonoBehaviour
             {
                 closestDistance = distance;
                 targetFlag = flag;
+            }
+
+            Collider2D flagCol = flag.GetComponent<Collider2D>();
+            if (flagCol != null)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), flagCol, true);
             }
         }
 
@@ -254,7 +262,7 @@ public class BillionController : MonoBehaviour
         laser.transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
 
         String bTag = null;
-        switch (turrent.tag)
+        switch (gameObject.tag)
         {
             case "MRed": bTag = "BR"; break;
             case "MBlue": bTag = "BB"; break;
@@ -262,7 +270,31 @@ public class BillionController : MonoBehaviour
             case "MYellow": bTag = "BY"; break;
         }
 
+        int dmg = 1 + ((lvl + 1) / 2);
+
         laser.GetComponent<Laser>().ownerTag = gameObject.tag;
         laser.GetComponent<Laser>().baseTag = bTag;
+        laser.GetComponent<Laser>().damage = dmg;
+    }
+
+    public void HandleLVL(int lvl)
+    {
+        maxHealth += lvl / 2;
+        health = maxHealth;
+        Transform lvlEffect = transform.Find("lvlEffect");
+        if (lvlEffect == null)
+        {
+            Debug.LogWarning("lvlEffect not found");
+            return;
+        }
+
+        for (int i = 0; i <= 9; i++)
+        {
+            Transform child = lvlEffect.Find(i.ToString());
+            if (child != null)
+            {
+                child.gameObject.SetActive(i == lvl);
+            }
+        }
     }
 }

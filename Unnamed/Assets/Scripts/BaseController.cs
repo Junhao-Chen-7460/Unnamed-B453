@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.Mathematics;
 
 public class BaseController : MonoBehaviour
 {
@@ -29,6 +30,17 @@ public class BaseController : MonoBehaviour
     private Transform turrentGun;
     private Transform shotPoint;
 
+    [SerializeField] int maxHealth = 20;
+    private int health;
+    [SerializeField] LifeRing lifeRing;
+
+    public int lvl = 0;
+
+    private float timer1;
+    private float upgradeTimer = 10f;
+
+    public int curExp = 0;
+    public int maxExp = 5;
     Dictionary<string, List<string>> enemyDict = new Dictionary<string, List<string>>()
     {
         { "TRed",    new List<string>{ "MBlue", "MYellow", "MGreen" } },
@@ -49,6 +61,9 @@ public class BaseController : MonoBehaviour
             turrentGun = turrent.transform.Find("TurrentGun");
             shotPoint = turrentGun.Find("shotPoint");
         }
+
+        health = maxHealth;
+        lifeRing.Init(maxHealth);
     }
 
     // Update is called once per frame
@@ -59,10 +74,17 @@ public class BaseController : MonoBehaviour
         TryFireAtClosestEnemy();
         
         timer += Time.deltaTime;
+        timer1 += Time.deltaTime;
         if (timer >= SpawnTime)
         {
             timer = 0f;
             SpawnBillion();
+        }
+
+        if (timer1 >= upgradeTimer)
+        {
+            timer1 = 0f;
+            Upgrade();
         }
     }
 
@@ -74,7 +96,13 @@ public class BaseController : MonoBehaviour
     {
         float randX = UnityEngine.Random.Range(SpawnPoint.x - 0.1f, SpawnPoint.x + 0.1f);
         float randY = UnityEngine.Random.Range(SpawnPoint.y - 0.1f, SpawnPoint.y + 0.1f);
+
+        billions.GetComponent<BillionController>().lvl = lvl;
+        billions.GetComponent<BillionController>().HandleLVL(lvl);
+
         Instantiate(billions, new Vector3(randX,randY,-0.01f), Quaternion.identity);
+
+
     }
 
     void FaceClosestEnemy()
@@ -179,7 +207,52 @@ public class BaseController : MonoBehaviour
             case "TGreen": bTag = "BG"; break;
             case "TYellow": bTag = "BY"; break;
         }
+
+        int dmg = 1919810;
         laser.GetComponent<Laser>().ownerTag = oTag;
         laser.GetComponent<Laser>().baseTag = bTag;
+        laser.GetComponent<Laser>().damage = dmg;
     }
+
+    void HandleHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log(gameObject.tag + " Current Health left: " + health);
+    }
+
+    public void minusHealth(int number)
+    {
+        health -= number;
+        HandleHealth();
+        lifeRing.SetHealth(health);
+    }
+
+    public void Upgrade()
+    {
+        if (lvl < 9){
+            lvl++;
+            Transform lvlText = transform.Find("lvlText");
+            if (lvlText == null)
+            {
+                Debug.LogWarning("lvlText not found");
+                return;
+            }
+            for (int i = 0; i <= 9; i++)
+            {
+                Transform child = lvlText.Find(i.ToString());
+                if (child != null)
+                {
+                    child.gameObject.SetActive(i == lvl);
+                }
+            }
+        } else 
+        {
+            return;
+        }
+    }
+
+    
 }
