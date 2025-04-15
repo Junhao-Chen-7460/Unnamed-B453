@@ -12,22 +12,13 @@ public class Laser : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (
-            (other.GetComponent<BillionController>() != null || other.GetComponent<BaseController>() != null)
-             && !other.CompareTag(ownerTag))
+        else if (other.GetComponent<BillionController>() != null && !other.CompareTag(ownerTag))
         {
             if (other.CompareTag(baseTag))
             {
                 return;
             }
-            if (other.GetComponent<BillionController>() != null)
-            {
-                other.GetComponent<BillionController>().minusHealth(damage);
-            }
-            else
-            {
-                other.GetComponent<BaseController>().minusHealth(damage);
-            }
+            other.GetComponent<BillionController>().minusHealth(damage);
             Destroy(gameObject);
         }
         else
