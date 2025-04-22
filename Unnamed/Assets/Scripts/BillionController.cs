@@ -14,7 +14,7 @@ public class BillionController : MonoBehaviour
     private float stoppingDistance = 0.5f;
     private float decelerationFactor = 0.98f;
 
-    private int health;
+    public int health;
     public int maxHealth = 4;
 
     [SerializeField] GameObject DmgEffect1;
@@ -144,12 +144,12 @@ public class BillionController : MonoBehaviour
         }
     }
 
-    void HandleHealth()
+    public void HandleHealthVFX()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        // if (health <= 0)
+        // {
+        //     Destroy(gameObject);
+        // }
 
         float healthPercent = (float)health / maxHealth;
         if (healthPercent <= 1f / 3f)
@@ -173,11 +173,11 @@ public class BillionController : MonoBehaviour
 
     }
 
-    public void minusHealth(int number)
-    {
-        health -= number;
-        HandleHealth();
-    }
+    // public void minusHealth(int number)
+    // {
+    //     health -= number;
+    //     HandleHealth();
+    // }
     void FaceClosestEnemy()
     {
         if (!enemyDict.ContainsKey(gameObject.tag)) return; 

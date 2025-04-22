@@ -31,13 +31,12 @@ public class BaseController : MonoBehaviour
     private Transform shotPoint;
 
     [SerializeField] int maxHealth = 20;
-    private int health;
+    public int health;
     [SerializeField] LifeRing lifeRing;
+    [SerializeField] ExpRing expRing;
 
     public int lvl = 0;
 
-    private float timer1;
-    private float upgradeTimer = 10f;
 
     public int curExp = 0;
     public int maxExp = 5;
@@ -74,17 +73,10 @@ public class BaseController : MonoBehaviour
         TryFireAtClosestEnemy();
         
         timer += Time.deltaTime;
-        timer1 += Time.deltaTime;
         if (timer >= SpawnTime)
         {
             timer = 0f;
             SpawnBillion();
-        }
-
-        if (timer1 >= upgradeTimer)
-        {
-            timer1 = 0f;
-            Upgrade();
         }
     }
 
@@ -214,20 +206,14 @@ public class BaseController : MonoBehaviour
         laser.GetComponent<Laser>().damage = dmg;
     }
 
-    void HandleHealth()
+    public void HandleHealthVFX()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-        Debug.Log(gameObject.tag + " Current Health left: " + health);
+        lifeRing.SetHealth(health);
     }
 
-    public void minusHealth(int number)
+    public void HandleExpVFX()
     {
-        health -= number;
-        HandleHealth();
-        lifeRing.SetHealth(health);
+        expRing.UpdateExpRing(curExp, maxExp);
     }
 
     public void Upgrade()
@@ -248,6 +234,7 @@ public class BaseController : MonoBehaviour
                     child.gameObject.SetActive(i == lvl);
                 }
             }
+            maxExp *= 2; 
         } else 
         {
             return;
