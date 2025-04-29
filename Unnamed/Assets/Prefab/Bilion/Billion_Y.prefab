@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFlagPrefab: {fileID: 2055455528172279734, guid: 7aed4db7111e76542be33af82b6a5fb2, type: 3}
-  health: 12
-  maxHealth: 12
+  health: 27
+  maxHealth: 27
   DmgEffect1: {fileID: 6214873136659932028}
   DmgEffect2: {fileID: 3892187920988463606}
   DmgEffect3: {fileID: 4753763006522219772}

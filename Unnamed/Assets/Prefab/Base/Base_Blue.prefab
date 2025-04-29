@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   billions: {fileID: 3228473201084470619, guid: 599a9d2f3c49e104ab035316aeb57c9b, type: 3}
-  SpawnTime: 20000
+  SpawnTime: 2
   redLaserPrefab: {fileID: 7495575058720519165, guid: 45c8c226695b92a44b619fabf70f94b8, type: 3}
   blueLaserPrefab: {fileID: 9065357710417424562, guid: 83efd2e2ab668d0499c88a940382d79f, type: 3}
   greenLaserPrefab: {fileID: 7441967172015195625, guid: a9bb87e7aa6bd664b819e96f3cb5cac6, type: 3}
