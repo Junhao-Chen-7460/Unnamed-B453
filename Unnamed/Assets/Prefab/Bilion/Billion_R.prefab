@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFlagPrefab: {fileID: 4522507307661800369, guid: 79bcb5228f2aa764e8b7ef1e0cbfa966, type: 3}
-  health: 4
-  maxHealth: 4
+  health: 8
+  maxHealth: 8
   DmgEffect1: {fileID: 8307202954882877361}
   DmgEffect2: {fileID: 490627527680339306}
   DmgEffect3: {fileID: 7399161466697130495}
@@ -207,7 +207,7 @@ MonoBehaviour:
   laserSpeed: 7
   fireDistance: 5
   fireCooldown: 1.5
-  lvl: 0
+  lvl: 2
 --- !u!50 &-468589881759301027
 Rigidbody2D:
   serializedVersion: 5
@@ -676,7 +676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2311949943664152301
 Transform:
   m_ObjectHideFlags: 0
@@ -936,7 +936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7811842404892253260
 Transform:
   m_ObjectHideFlags: 0

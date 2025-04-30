@@ -1645,5 +1645,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segments: 100
-  radius: 1.2
+  radius: 0.5
   lineWidth: 0.05

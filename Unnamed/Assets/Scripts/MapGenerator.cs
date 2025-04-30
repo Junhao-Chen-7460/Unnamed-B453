@@ -83,6 +83,22 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
+    bool IsClear(int cx, int cy)
+    {
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                int nx = cx + dx;
+                int ny = cy + dy;
+                if (nx < 0 || nx >= width || ny < 0 || ny >= height)
+                    return false;
+                if (map[nx, ny] != 0)
+                    return false;
+            }
+        }
+        return true;
+    }
 
     void CreateRandomBigOpenArea()
     {
@@ -214,7 +230,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = baseSafeDistanceFromWall; y < height - baseSafeDistanceFromWall; y++)
             {
-                if (map[x, y] == 0)
+                if (IsClear(x, y))
                 {
                     candidates.Add(new Vector2(x, y));
                 }
