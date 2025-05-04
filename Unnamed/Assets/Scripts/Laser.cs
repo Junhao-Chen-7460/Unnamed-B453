@@ -8,6 +8,15 @@ public class Laser : MonoBehaviour
     public string baseTag;
     public int damage;
 
+    [SerializeField] float AutoDestoryTime = 1f;
+
+
+    void Start()
+    {
+        Destroy(gameObject, AutoDestoryTime);
+    }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
